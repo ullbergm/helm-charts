@@ -1,0 +1,53 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-nzbget
+  labels:
+    app: {{ template "nzbget.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: {{ template "nzbget.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+        - name: nzbget
+          image: {{ .Values.nzbget.image }}
+          ports:
+            - containerPort: 6789
+              name: nzbget
+          env:
+            - name: PUID
+              value: "0"
+            - name: PGID
+              value: "0"
+            - name: TZ
+              value: "EST5EDT"
+          volumeMounts:
+{{- if .Values.hadoop.useConfigMap }}
+            - mountPath: {{ .Values.hadoop.configPath }}
+              name: hadoop-config
+{{- end }}
+          resources:
+{{ toYaml .Values.nzbget.resources | indent 12 }} 
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 6789
+            initialDelaySeconds: 20
+            timeoutSeconds: 1
+{{- if .Values.hadoop.useConfigMap }}
+      volumes:
+        - name: hadoop-config
+          configMap:
+            name: {{ .Values.hadoop.configMapName }}
+{{- end }}

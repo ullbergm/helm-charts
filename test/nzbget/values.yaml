@@ -1,0 +1,6 @@
+nzbget:
+  image: ullbergm/nzbget
+#  resources:
+#    limits:
+#      memory: "4096Mi"
+#      cpu: "2000m"
