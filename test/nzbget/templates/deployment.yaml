@@ -1,5 +1,5 @@
-apiVersion: extensions/v1beta1
-kind: Deployment
+apiVersion: extensions/v1beta2
+kind: StatefulSet
 metadata:
   name: {{ .Release.Name }}-nzbget
   labels:
@@ -8,10 +8,8 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
-  strategy:
-    rollingUpdate:
-      maxSurge: 0
-      maxUnavailable: 1
+  updateStrategy:
+    type: RollingUpdate
   replicas: 1
   template:
     metadata:
@@ -23,9 +21,11 @@ spec:
       containers:
         - name: nzbget
           image: {{ .Values.nzbget.image }}
+          imagePullPolicy: Always
           ports:
             - containerPort: 6789
               name: nzbget
+              protocol: TCP
           env:
             - name: PUID
               value: "0"
@@ -34,6 +34,12 @@ spec:
             - name: TZ
               value: "EST5EDT"
           volumeMounts:
+          - mountPath: /config
+            name: config
+          - mountPath: /data/downloads
+            name: downloads
+          - mountPath: /data/media
+            name: media
           resources:
 {{ toYaml .Values.nzbget.resources | indent 12 }} 
           readinessProbe:
@@ -42,3 +48,16 @@ spec:
               port: 6789
             initialDelaySeconds: 20
             timeoutSeconds: 1
+      volumes:
+      - hostPath:
+          path: /data/config/nzbget
+          type: DirectoryOrCreate
+        name: config
+      - hostPath:
+          path: /data/downloads
+          type: DirectoryOrCreate
+        name: downloads
+      - hostPath:
+          path: /data/media
+          type: DirectoryOrCreate
+        name: media
