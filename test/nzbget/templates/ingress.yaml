@@ -1,6 +1,3 @@
-{{- if .Values.ingress.enabled -}}
-{{- $fullName := include "nzbget.fullname" . -}}
-{{- $ingressPath := .Values.ingress.path -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -16,13 +13,10 @@ metadata:
 {{- end }}
 spec:
   rules:
-  {{- range .Values.ingress.hosts }}
-    - host: {{ . }}
+    - host: {{ .Values.ingress.host }}
       http:
         paths:
           - path: /
             backend:
               serviceName: {{ $fullName }}
               servicePort: 6789
-  {{- end }}
-{{- end }}
