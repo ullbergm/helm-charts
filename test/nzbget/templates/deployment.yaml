@@ -42,12 +42,6 @@ spec:
             name: media
           resources:
 {{ toYaml .Values.nzbget.resources | indent 12 }} 
-          readinessProbe:
-            httpGet:
-              path: /
-              port: 6789
-            initialDelaySeconds: 20
-            timeoutSeconds: 1
       volumes:
       - hostPath:
           path: /data/config/nzbget
