@@ -1,5 +1,5 @@
 apiVersion: extensions/v1beta2
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: {{ .Release.Name }}-nzbget
   labels:
@@ -8,8 +8,12 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
-  updateStrategy:
+  strategy:
     type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 100%
+  revisionHistoryLimit: 1
   replicas: 1
   template:
     metadata:
