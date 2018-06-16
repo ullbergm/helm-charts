@@ -23,6 +23,6 @@ spec:
           - path: /
             backend:
               serviceName: {{ $fullName }}
-              servicePort: nzbget
+              servicePort: 6789
   {{- end }}
 {{- end }}

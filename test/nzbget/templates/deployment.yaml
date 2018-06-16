@@ -32,11 +32,11 @@ spec:
           livenessProbe:
             httpGet:
               path: /
-              port: nzbget
+              port: 6789
           readinessProbe:
             httpGet:
               path: /
-              port: nzbget
+              port: 6789
           resources:
 {{ toYaml .Values.resources | indent 12 }}
     {{- with .Values.nodeSelector }}
