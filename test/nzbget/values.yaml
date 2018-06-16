@@ -11,7 +11,6 @@ image:
 
 service:
   type: ClusterIP
-  port: 6789
 
 ingress:
   enabled: false
