@@ -1,4 +1,5 @@
-apiVersion: apps/v1beta2
+apiVersion: extensions/v1beta1
+>>>>>>> 04706db730d13d5dd2db1707a195c8bdbc7a7d62
 kind: Deployment
 metadata:
   name: {{ template "nzbget.fullname" . }}
@@ -8,11 +9,13 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
-  replicas: {{ .Values.replicaCount }}
-  selector:
-    matchLabels:
-      app: {{ template "nzbget.name" . }}
-      release: {{ .Release.Name }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 100%
+  revisionHistoryLimit: 1
+  replicas: 1
   template:
     metadata:
       labels:
