@@ -29,16 +29,6 @@ spec:
             - name: nzbget
               containerPort: 6789
               protocol: TCP
-{{- if .Values.healthcheck.enabled -}}
-          livenessProbe:
-            httpGet:
-              path: /
-              port: 6789
-          readinessProbe:
-            httpGet:
-              path: /
-              port: 6789
-{{- end }}
           resources:
 {{ toYaml .Values.resources | indent 12 }}
     {{- with .Values.nodeSelector }}
