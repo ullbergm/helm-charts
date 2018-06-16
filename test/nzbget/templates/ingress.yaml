@@ -1,3 +1,4 @@
+{{- $fullName := include "nzbget.fullname" . -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
