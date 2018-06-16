@@ -1,5 +1,4 @@
 apiVersion: extensions/v1beta1
->>>>>>> 04706db730d13d5dd2db1707a195c8bdbc7a7d62
 kind: Deployment
 metadata:
   name: {{ template "nzbget.fullname" . }}
