@@ -33,10 +33,6 @@ spec:
             - name: TZ
               value: "EST5EDT"
           volumeMounts:
-{{- if .Values.hadoop.useConfigMap }}
-            - mountPath: {{ .Values.hadoop.configPath }}
-              name: hadoop-config
-{{- end }}
           resources:
 {{ toYaml .Values.nzbget.resources | indent 12 }} 
           readinessProbe:
@@ -45,9 +41,3 @@ spec:
               port: 6789
             initialDelaySeconds: 20
             timeoutSeconds: 1
-{{- if .Values.hadoop.useConfigMap }}
-      volumes:
-        - name: hadoop-config
-          configMap:
-            name: {{ .Values.hadoop.configMapName }}
-{{- end }}
