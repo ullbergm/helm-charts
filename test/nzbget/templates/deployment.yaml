@@ -1,57 +1,51 @@
-apiVersion: extensions/v1beta2
-kind: StatefulSet
+apiVersion: apps/v1beta2
+kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-nzbget
+  name: {{ template "nzbget.fullname" . }}
   labels:
     app: {{ template "nzbget.name" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    chart: {{ template "nzbget.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
-  updateStrategy:
-    type: RollingUpdate
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "nzbget.name" . }}
+      release: {{ .Release.Name }}
   template:
     metadata:
       labels:
         app: {{ template "nzbget.name" . }}
         release: {{ .Release.Name }}
     spec:
-      terminationGracePeriodSeconds: 0
       containers:
-        - name: nzbget
-          image: {{ .Values.nzbget.image }}
-          imagePullPolicy: Always
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - containerPort: 6789
-              name: nzbget
+            - name: nzbget
+              containerPort: 6789
               protocol: TCP
-          env:
-            - name: PUID
-              value: "0"
-            - name: PGID
-              value: "0"
-            - name: TZ
-              value: "EST5EDT"
-          volumeMounts:
-          - mountPath: /config
-            name: config
-          - mountPath: /data/downloads
-            name: downloads
-          - mountPath: /data/media
-            name: media
+          livenessProbe:
+            httpGet:
+              path: /
+              port: nzbget
+          readinessProbe:
+            httpGet:
+              path: /
+              port: nzbget
           resources:
-{{ toYaml .Values.nzbget.resources | indent 12 }} 
-      volumes:
-      - hostPath:
-          path: /data/config/nzbget
-          type: DirectoryOrCreate
-        name: config
-      - hostPath:
-          path: /data/downloads
-          type: DirectoryOrCreate
-        name: downloads
-      - hostPath:
-          path: /data/media
-          type: DirectoryOrCreate
-        name: media
+{{ toYaml .Values.resources | indent 12 }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}

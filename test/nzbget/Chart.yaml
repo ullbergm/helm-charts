@@ -1,7 +1,7 @@
 apiVersion: v1
 description: NZBGet is a usenet downloader, written in C++ and designed with performance in mind to achieve maximum download speed by using very little system resources.
 name: nzbget
-version: 1.0.0
+version: 0.1.0
 appVersion: 20.0
 home: https://nzbget.net/
 sources:
