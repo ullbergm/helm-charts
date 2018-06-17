@@ -1,0 +1,12 @@
+apiVersion: v1
+description: Radarr - A fork of Sonarr to work with movies à la Couchpotato. 
+name: sonarr
+version: 0.2.0
+appVersion: v0.2.0.1120
+home: https://github.com/Radarr/Radarr
+sources:
+- https://github.com/Radarr/Radarr
+icon: https://raw.githubusercontent.com/Radarr/Radarr/develop/Logo/256.png
+maintainers:
+- name: ullbergm
+  email: magnus@ullberg.us

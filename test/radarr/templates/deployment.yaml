@@ -1,10 +1,10 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: {{ template "sonarr.fullname" . }}
+  name: {{ template "radarr.fullname" . }}
   labels:
-    app: {{ template "sonarr.name" . }}
-    chart: {{ template "sonarr.chart" . }}
+    app: {{ template "radarr.name" . }}
+    chart: {{ template "radarr.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
@@ -18,7 +18,7 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ template "sonarr.name" . }}
+        app: {{ template "radarr.name" . }}
         release: {{ .Release.Name }}
     spec:
       containers:
@@ -33,8 +33,8 @@ spec:
             - name: TZ
               value: "EST5EDT"
           ports:
-            - name: sonarr
-              containerPort: 8989
+            - name: radarr
+              containerPort: 9090
               protocol: TCP
           volumeMounts:
             - mountPath: /config
@@ -59,7 +59,7 @@ spec:
     {{- end }}
       volumes:
         - hostPath:
-            path: /data/config/sonarr
+            path: /data/config/radarr
             type: DirectoryOrCreate
           name: config
         - hostPath:
