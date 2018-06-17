@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "headphones.fullname" . }}
+  labels:
+    app: {{ template "headphones.name" . }}
+    chart: {{ template "headphones.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8181
+      targetPort: 8181
+      protocol: TCP
+      name: headphones
+  selector:
+    app: {{ template "headphones.name" . }}
+    release: {{ .Release.Name }}
