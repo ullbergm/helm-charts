@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "sonarr.fullname" . }}
+  labels:
+    app: {{ template "sonarr.name" . }}
+    chart: {{ template "sonarr.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8989
+      targetPort: 8989
+      protocol: TCP
+      name: sonarr
+  selector:
+    app: {{ template "sonarr.name" . }}
+    release: {{ .Release.Name }}
