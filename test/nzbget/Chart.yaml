@@ -6,7 +6,7 @@ appVersion: 20.0
 home: https://nzbget.net/
 sources:
 - https://github.com/nzbget/nzbget
-icon: https://github.com/nzbget/nzbget/blob/develop/webui/img/favicon-256x256.png
+icon: https://raw.githubusercontent.com/nzbget/nzbget/develop/webui/img/favicon-256x256.png
 maintainers:
 - name: ullbergm
   email: magnus@ullberg.us
