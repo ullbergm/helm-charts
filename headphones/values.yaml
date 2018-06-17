@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: ullbergm/headphones
+  repository: linuxserver/headphones
   tag: latest
   pullPolicy: Always
 
