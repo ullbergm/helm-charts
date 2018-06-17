@@ -52,14 +52,14 @@ spec:
     {{- end }}
       volumes:
         - hostPath:
-          path: /data/config
-          type: DirectoryOrCreate
+            path: /data/config
+            type: DirectoryOrCreate
           name: config
         - hostPath:
-          path: /data/media
-          type: DirectoryOrCreate
+            path: /data/media
+            type: DirectoryOrCreate
           name: media
         - hostPath:
-          path: /data/downloads
-          type: DirectoryOrCreate
+            path: /data/downloads
+            type: DirectoryOrCreate
           name: downloads
