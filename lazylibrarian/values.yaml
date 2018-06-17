@@ -1,0 +1,21 @@
+# Default values for lazylibrarian.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: linuxserver/lazylibrarian
+  tag: latest
+  pullPolicy: Always
+
+ingress:
+  host: lazylibrarian.media.ullberg.family
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

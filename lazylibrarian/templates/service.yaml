@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "lazylibrarian.fullname" . }}
+  labels:
+    app: {{ template "lazylibrarian.name" . }}
+    chart: {{ template "lazylibrarian.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5299
+      targetPort: 5299
+      protocol: TCP
+      name: lazylibrarian
+  selector:
+    app: {{ template "lazylibrarian.name" . }}
+    release: {{ .Release.Name }}
