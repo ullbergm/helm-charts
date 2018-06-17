@@ -25,6 +25,13 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: PUID
+              value: 0
+            - name: PGID
+              value: 0
+            - name: TZ
+              value: EST5EDT
           ports:
             - name: nzbget
               containerPort: 6789
@@ -32,7 +39,7 @@ spec:
           volumeMounts:
             - mountPath: /config
               name: config
-            - mountPath: /data/media
+            - mountPath: /media
               name: media
             - mountPath: /downloads
               name: downloads
@@ -52,7 +59,7 @@ spec:
     {{- end }}
       volumes:
         - hostPath:
-            path: /data/config
+            path: /data/config/nzbget
             type: DirectoryOrCreate
           name: config
         - hostPath:
