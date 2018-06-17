@@ -34,7 +34,7 @@ spec:
               value: "EST5EDT"
           ports:
             - name: radarr
-              containerPort: 9090
+              containerPort: 7878
               protocol: TCP
           volumeMounts:
             - mountPath: /config
