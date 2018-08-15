@@ -1,0 +1,21 @@
+# Default values for embyserver.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: linuxserver/embyserver
+  tag: latest
+  pullPolicy: Always
+
+ingress:
+  host: embyserver.media.ullberg.family
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

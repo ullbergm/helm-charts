@@ -1,0 +1,12 @@
+apiVersion: v1
+description: EmbyServer
+name: sonarr
+version: 0.1.0
+appVersion: v1
+home: https://emby.media/
+sources:
+- https://emby.media/
+icon: https://emby.media/resources/logowhite_1881.png
+maintainers:
+- name: ullbergm
+  email: magnus@ullberg.us
