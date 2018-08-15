@@ -1,7 +1,7 @@
 apiVersion: v1
 description: Heimdall is a way to organise all those links to your most used web sites and web applications in a simple way.
 name: heimdall
-version: 0.1.0
+version: 0.2.0
 appVersion: v2.0.0.5163
 home: https://heimdall.site/
 sources:

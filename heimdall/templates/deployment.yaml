@@ -26,10 +26,6 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-            - name: PUID
-              value: "0"
-            - name: PGID
-              value: "0"
             - name: TZ
               value: "EST5EDT"
           ports:
