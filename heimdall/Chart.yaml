@@ -1,0 +1,12 @@
+apiVersion: v1
+description: Heimdall is a way to organise all those links to your most used web sites and web applications in a simple way.
+name: heimdall
+version: 0.1.0
+appVersion: v2.0.0.5163
+home: https://heimdall.site/
+sources:
+- https://github.com/linuxserver/Heimdall
+icon: https://raw.githubusercontent.com/linuxserver/Heimdall/master/public/img/heimdall-icon-small.png
+maintainers:
+- name: ullbergm
+  email: magnus@ullberg.us
