@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: linuxserver/embyserver
+  repository: emby/embyserver
   tag: latest
   pullPolicy: Always
 
